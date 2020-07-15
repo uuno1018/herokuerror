@@ -26,22 +26,7 @@ class ApiController extends Controller
     }
     public function show(Request $request)
     {
-        //検索条件取得
-        $tukaimiti = $request->tukaimiti;
-        $day = $request->day;
-        $query = money::query();
-        //検索条件ごとの分岐
-        if (!empty($tukaimiti) && !empty($day)){
-            $query->where('tukaimiti','=','$tukaimiti')
-            ->whereData('created_at','=','$day');
-        }
-        if(!empty($tukaimiti) && empty($day)){
-            $query->where('tukaimiti','=','$tukaimiti');
-        }
-        if(empty($tukaimiti) && !empty($day)){
-            $query->whereData('created_at','=','$day');
-        }
-        $moneys = $query->get();
+        $moneys =  money::all();
         return response()->json($moneys);
     }
 }
